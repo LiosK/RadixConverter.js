@@ -1,0 +1,53 @@
+=head1 RadixConverter.js
+
+A generalized radix converter for unsigned integers.
+
+=head2 Usage Examples
+
+Load F<src/RadixConverter.js>.
+
+  // set up numeral systems for input and output digit sequence
+  var inputNumeralSystem  = "0123456789";
+  var outputNumeralSystem = "0123456789abcdef";
+  var rc = new RadixConverter(inputNumeralSystem, outputNumeralSystem);
+
+  // convert decimal string to hexadecimal string
+  console.log(rc.convert("12345678901234567890123456789012"));  // "9bd30a3c645943dd1690a03a14"
+
+  // another example (non-standard numeral systems)
+  var rc = new RadixConverter("the quickbrownfxjmpsvlazydg.", "><+-.,[]");
+  console.log(rc.convert("cwm fjord veg balks nth pyx quiz.")); // "<,++[-++>+<<]].>,<>><<<>.[[+,[<>+>->+-[[.[-<>[.[>.[]]"
+
+  // string array for output numeral system
+  var rc = new RadixConverter("AaBbC", ["Ook.", "Ook!", "Ook?"]); // case sensitive
+  console.log(rc.convert("ABabC")); // ["Ook!", "Ook.", "Ook!", "Ook?", "Ook?", "Ook."]
+
+  // string array for input numeral system and input digits
+  var rc = new RadixConverter(["Alice", "Bob", "Carol", "Dave"], "qp");
+  console.log(rc.convert(["Bob", "Bob", "Carol", "Alice", "Dave"]));  // "pqppqqqpp"
+
+=head2 License
+
+This library is licensed under the MIT license.
+
+  Copyright (c) 2012 LiosK.
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+
+=cut
