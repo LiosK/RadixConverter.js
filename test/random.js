@@ -26,11 +26,12 @@ function pad(str, length) {
 
 test("53-bit random number tests", function() {
   var strSys = createPopularSystems([""]), arrSys = createPopularSystems([[]]);
-  var len = strSys.length, nnums = 4;
-  expect((len - 2) * (len - 2) * nnums * 4);
+  var len = strSys.length, nnums = 2;
+  expect((len - 2) * (len - 2) * nnums * 5);
 
   for (var i = 2; i < len; ++i) {
     for (var j = 2; j < len; ++j) {
+      var ii = new RadixConverter(i, j);
       var ss = new RadixConverter(strSys[i], strSys[j]);
       var as = new RadixConverter(arrSys[i], strSys[j]);
       var aa = new RadixConverter(arrSys[i], arrSys[j]);
@@ -38,6 +39,7 @@ test("53-bit random number tests", function() {
       for (var k = 0; k < nnums; ++k) {
         var num = getRandomInt(53);
         var x = num.toString(i), y = num.toString(j), ax = x.split(""), ay = y.split("");
+         equal(    ii.convert( x),  y, "str: " + x + "(" + i + ") -> str: " + y + "(" + j + ")");
          equal(    ss.convert( x),  y, "str: " + x + "(" + i + ") -> str: " + y + "(" + j + ")");
          equal(    as.convert(ax),  y, "arr: " + x + "(" + i + ") -> str: " + y + "(" + j + ")");
          deepEqual(aa.convert(ax), ay, "arr: " + x + "(" + i + ") -> arr: " + y + "(" + j + ")");
@@ -50,17 +52,19 @@ test("53-bit random number tests", function() {
 test("longer random number tests", function() {
   var strSys = createPopularSystems([""]), arrSys = createPopularSystems([[]]);
   var len = strSys.length, nnums = 4, intmax = Math.pow(2, 53), nstretch = 5;
-  expect(212 * nnums);
+  expect(265 * nnums);
 
   for (var i = 2; i < len; ++i) {
     for (var j = i; j < len; j *= i) {
       var jdigit = Math.floor(Math.log(intmax) / Math.log(j));
       var base = Math.pow(j, jdigit), idigit = Math.round(Math.log(base) / Math.log(i));
 
+      var ii = new RadixConverter(i, j);
       var ss = new RadixConverter(strSys[i], strSys[j]);
       var as = new RadixConverter(arrSys[i], strSys[j]);
       var aa = new RadixConverter(arrSys[i], arrSys[j]);
       var sa = new RadixConverter(strSys[i], arrSys[j]);
+      var fii = new RadixConverter(j, i);
       var fss = new RadixConverter(strSys[j], strSys[i]);
       var fas = new RadixConverter(arrSys[j], strSys[i]);
       var faa = new RadixConverter(arrSys[j], arrSys[i]);
@@ -76,11 +80,13 @@ test("longer random number tests", function() {
         x = x.replace(/^0+/, "");
         y = y.replace(/^0+/, "");
         var ax = x.split(""), ay = y.split("");
+        equal(    ii.convert( x),  y, "str: " + x + "(" + i + ") -> str: " + y + "(" + j + ")");
         equal(    ss.convert( x),  y, "str: " + x + "(" + i + ") -> str: " + y + "(" + j + ")");
         equal(    as.convert(ax),  y, "arr: " + x + "(" + i + ") -> str: " + y + "(" + j + ")");
         deepEqual(aa.convert(ax), ay, "arr: " + x + "(" + i + ") -> arr: " + y + "(" + j + ")");
         deepEqual(sa.convert( x), ay, "str: " + x + "(" + i + ") -> arr: " + y + "(" + j + ")");
         if (i !== j) {  // flipped test
+          equal(    fii.convert( y),  x, "str: " + y + "(" + j + ") -> str: " + x + "(" + i + ")");
           equal(    fss.convert( y),  x, "str: " + y + "(" + j + ") -> str: " + x + "(" + i + ")");
           equal(    fas.convert(ay),  x, "arr: " + y + "(" + j + ") -> str: " + x + "(" + i + ")");
           deepEqual(faa.convert(ay), ax, "arr: " + y + "(" + j + ") -> arr: " + x + "(" + i + ")");

@@ -12,13 +12,6 @@ module("testing training examples");
     }
   }
 
-  function TestCase(xsys, xval, ysys, yval) {
-    this.xsys = xsys;
-    this.xval = xval;
-    this.ysys = ysys;
-    this.yval = yval;
-  }
-
   CaseSet.prototype.runTest = function() {
     var cases = this.cases;
     test(this.title, cases.length * 2, function() {
@@ -39,6 +32,21 @@ module("testing training examples");
     });
   };
 
+  function TestCase(xsys, xval, ysys, yval) {
+    this.xsys = xsys;
+    this.xval = xval;
+    this.ysys = ysys;
+    this.yval = yval;
+  }
+
+  TestCase.prototype.descXtoY = function() {
+    return format(this.xsys) + " -> " + format(this.ysys) + ": " + format(this.xval);
+  };
+
+  TestCase.prototype.descYtoX = function() {
+    return format(this.ysys) + " -> " + format(this.xsys) + ": " + format(this.yval);
+  };
+
   function format(x) {
     var n = 16;
     if (x instanceof Array) {
@@ -56,18 +64,7 @@ module("testing training examples");
     }
   }
 
-  TestCase.prototype.descXtoY = function() {
-    var lsys = this.xsys, lval = this.xval;
-    var rsys = this.ysys, rval = this.yval;
-    return format(lsys) + " -> " + format(rsys) + ": " + format(lval);
-  };
-
-  TestCase.prototype.descYtoX = function() {
-    var lsys = this.ysys, lval = this.yval;
-    var rsys = this.xsys, rval = this.xval;
-    return format(lsys) + " -> " + format(rsys) + ": " + format(lval);
-  };
-
+  // test case definitions below
   new CaseSet(
     "README examples"
     , new TestCase("0123456789", "12345678901234567890123456789012", "0123456789abcdef", "9bd30a3c645943dd1690a03a14")
