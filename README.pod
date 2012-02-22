@@ -14,6 +14,10 @@ Load F<src/RadixConverter.js>.
   // convert decimal string to hexadecimal string
   console.log(rc.convert("12345678901234567890123456789012"));  // "9bd30a3c645943dd1690a03a14"
 
+  // the same example but using radix integer parameters
+  var rc = new RadixConverter(10, 16);
+  console.log(rc.convert("12345678901234567890123456789012"));  // "9bd30a3c645943dd1690a03a14"
+
   // another example (non-standard numeral systems)
   var rc = new RadixConverter("the quickbrownfxjmpsvlazydg.", "><+-.,[]");
   console.log(rc.convert("cwm fjord veg balks nth pyx quiz.")); // "<,++[-++>+<<]].>,<>><<<>.[[+,[<>+>->+-[[.[-<>[.[>.[]]"

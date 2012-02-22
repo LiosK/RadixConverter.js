@@ -232,7 +232,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/RadixConverter.html#constructor">RadixConverter</a></b>(ipSymbols, opSymbols)
+								<b><a href="../symbols/RadixConverter.html#constructor">RadixConverter</a></b>(ipSystem, opSystem)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -242,34 +242,6 @@ ul.inheritsList
 			
 
 <!-- ============================== properties summary ===================== -->
-			
-				
-				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class RadixConverter.">
-					<caption>Field Summary</caption>
-					<thead>
-						<tr>
-							<th scope="col">Field Attributes</th>
-							<th scope="col">Field Name and Description</th>
-						</tr>
-					</thead>
-					<tbody>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &lt;constant&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								RadixConverter.<b><a href="../symbols/RadixConverter.html#.DECIMAL_SYMBOLS">DECIMAL_SYMBOLS</a></b>
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-					</tbody>
-				</table>
-				
-				
-				
 			
 
 <!-- ============================== methods summary ======================== -->
@@ -300,7 +272,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont">RadixConverter.<b><a href="../symbols/RadixConverter.html#.getPopularSystem">getPopularSystem</a></b>(radix)
 								</div>
-								<div class="description"></div>
+								<div class="description">Returns the popular numeral system for the given radix.</div>
 							</td>
 						</tr>
 					
@@ -309,7 +281,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/RadixConverter.html#ipRadix">ipRadix</a></b>()
 								</div>
-								<div class="description"></div>
+								<div class="description">Returns the radix of the input numeral system.</div>
 							</td>
 						</tr>
 					
@@ -318,7 +290,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/RadixConverter.html#ipSymbols">ipSymbols</a></b>()
 								</div>
-								<div class="description"></div>
+								<div class="description">Returns the symbol list of the input numeral system.</div>
 							</td>
 						</tr>
 					
@@ -327,7 +299,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/RadixConverter.html#opRadix">opRadix</a></b>()
 								</div>
-								<div class="description"></div>
+								<div class="description">Returns the radix of the output numeral system.</div>
 							</td>
 						</tr>
 					
@@ -336,7 +308,25 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/RadixConverter.html#opSymbols">opSymbols</a></b>()
 								</div>
-								<div class="description"></div>
+								<div class="description">Returns the symbol list of the output numeral system.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/RadixConverter.html#setIpSystem">setIpSystem</a></b>(sys)
+								</div>
+								<div class="description">Sets up the input numeral system.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/RadixConverter.html#setOpSystem">setOpSystem</a></b>(sys)
+								</div>
+								<div class="description">Sets up the output numeral system.</div>
 							</td>
 						</tr>
 					
@@ -357,7 +347,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>RadixConverter</b>(ipSymbols, opSymbols)
+						<b>RadixConverter</b>(ipSystem, opSystem)
 				</div>
 				
 				<div class="description">
@@ -373,14 +363,14 @@ ul.inheritsList
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								<span class="light fixedFont">{int|string|string[]}</span>  <b>ipSymbols</b>
-								<i>Optional, Default:  RadixConverter.DECIMAL_SYMBOLS</i>
+								<span class="light fixedFont">{int|string|string[]}</span>  <b>ipSystem</b>
+								<i>Optional, Default:  10</i>
 							</dt>
 								<dd></dd>
 						
 							<dt>
-								<span class="light fixedFont">{int|string|string[]}</span>  <b>opSymbols</b>
-								<i>Optional, Default:  RadixConverter.DECIMAL_SYMBOLS</i>
+								<span class="light fixedFont">{int|string|string[]}</span>  <b>opSystem</b>
+								<i>Optional, Default:  10</i>
 							</dt>
 								<dd></dd>
 						
@@ -407,33 +397,6 @@ ul.inheritsList
 			
 
 <!-- ============================== field details ========================== -->		
-			
-				<div class="sectionTitle">
-					Field Detail
-				</div>
-				
-					<a name=".DECIMAL_SYMBOLS"> </a>
-					<div class="fixedFont">&lt;static&gt; &lt;constant&gt; 
-					
-					
-					<span class="light">RadixConverter.</span><b>DECIMAL_SYMBOLS</b>
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					
-				
 			
 
 <!-- ============================== method details ========================= -->		
@@ -503,7 +466,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						
+						Returns the popular numeral system for the given radix.
 						
 						
 					</div>
@@ -518,7 +481,7 @@ ul.inheritsList
 									<span class="light fixedFont">{int}</span> <b>radix</b>
 									
 								</dt>
-								<dd>an integer ranging from 2 to 36</dd>
+								<dd>An integer ranging from 2 to 36.</dd>
 							
 							</dl>
 						
@@ -546,7 +509,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						
+						Returns the radix of the input numeral system.
 						
 						
 					</div>
@@ -573,12 +536,12 @@ ul.inheritsList
 					<a name="ipSymbols"> </a>
 					<div class="fixedFont">
 					
-					
+					<span class="light">{string|string[]}</span>
 					<b>ipSymbols</b>()
 					
 					</div>
 					<div class="description">
-						
+						Returns the symbol list of the input numeral system.
 						
 						
 					</div>
@@ -586,30 +549,16 @@ ul.inheritsList
 					
 					
 						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{int|string|string[]}</span> <b></b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
 						
 						
 						
 						
 							<dl class="detailList">
-							<dt class="heading">Throws:</dt>
+							<dt class="heading">Returns:</dt>
 							
-								<dt>
-									<span class="light fixedFont">{Error}</span>  <b></b>
-								</dt>
-								<dd></dd>
+								<dd><span class="light fixedFont">{string|string[]}</span> </dd>
 							
 							</dl>
-						
 						
 						
 						
@@ -624,7 +573,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						
+						Returns the radix of the output numeral system.
 						
 						
 					</div>
@@ -651,12 +600,44 @@ ul.inheritsList
 					<a name="opSymbols"> </a>
 					<div class="fixedFont">
 					
-					
+					<span class="light">{string|string[]}</span>
 					<b>opSymbols</b>()
 					
 					</div>
 					<div class="description">
+						Returns the symbol list of the output numeral system.
 						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{string|string[]}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="setIpSystem"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/RadixConverter.html">RadixConverter</a>}</span>
+					<b>setIpSystem</b>(sys)
+					
+					</div>
+					<div class="description">
+						Sets up the input numeral system.
 						
 						
 					</div>
@@ -668,7 +649,7 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{int|string|string[]}</span> <b></b>
+									<span class="light fixedFont">{int|string|string[]}</span> <b>sys</b>
 									
 								</dt>
 								<dd></dd>
@@ -689,6 +670,66 @@ ul.inheritsList
 							</dl>
 						
 						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/RadixConverter.html">RadixConverter</a>}</span> this.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="setOpSystem"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/RadixConverter.html">RadixConverter</a>}</span>
+					<b>setOpSystem</b>(sys)
+					
+					</div>
+					<div class="description">
+						Sets up the output numeral system.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{int|string|string[]}</span> <b>sys</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Throws:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Error}</span>  <b></b>
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/RadixConverter.html">RadixConverter</a>}</span> this.</dd>
+							
+							</dl>
+						
 						
 						
 
@@ -706,7 +747,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Feb 22 2012 00:55:01 GMT+0900 (JST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Feb 22 2012 23:24:08 GMT+0900 (JST)
 		</div>
 	</body>
 </html>

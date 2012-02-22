@@ -11,8 +11,8 @@
 
 /**
  * @constructor
- * @param {int|string|string[]} [ipSymbols = RadixConverter.DECIMAL_SYMBOLS]
- * @param {int|string|string[]} [opSymbols = RadixConverter.DECIMAL_SYMBOLS]
+ * @param {int|string|string[]} [ipSystem = 10]
+ * @param {int|string|string[]} [opSystem = 10]
  * @throws {Error}
  */
 var RadixConverter;
@@ -20,14 +20,15 @@ var RadixConverter;
 RadixConverter = (function() {
 
   /** @lends RadixConverter */
-  function RadixConverter(ipSymbols, opSymbols) {
-    var defaultSymbols = RadixConverter.DECIMAL_SYMBOLS;
-    this.ipSymbols((ipSymbols == null) ? defaultSymbols : ipSymbols);
-    this.opSymbols((opSymbols == null) ? defaultSymbols : opSymbols);
+  function RadixConverter(ipSystem, opSystem) {
+    this.setIpSystem((ipSystem == null) ? 10 : ipSystem);
+    this.setOpSystem((opSystem == null) ? 10 : opSystem);
   }
 
   /**
-   * @param {int} radix an integer ranging from 2 to 36
+   * Returns the popular numeral system for the given radix.
+   *
+   * @param {int} radix An integer ranging from 2 to 36.
    * @returns {string}
    */
   RadixConverter.getPopularSystem = function(radix) {
@@ -39,25 +40,23 @@ RadixConverter = (function() {
     }
   };
 
-  /** @constant */
-  RadixConverter.DECIMAL_SYMBOLS = RadixConverter.getPopularSystem(10);
-
   /**
-   * @param {int|string|string[]}
+   * Sets up the input numeral system.
+   *
+   * @param {int|string|string[]} sys
+   * @returns {RadixConverter} this.
    * @throws {Error}
    */
-  RadixConverter.prototype.ipSymbols = function(x) {
-    if (x == null) { return this._ipSymbols; }
-
-    if (typeof x === "number") {
-      x = RadixConverter.getPopularSystem(x);
-      if (x == null) {
-        throw new Error("invalid argument: invalid radix number for ipSymbols.");
+  RadixConverter.prototype.setIpSystem = function(sys) {
+    if (typeof sys === "number") {
+      sys = RadixConverter.getPopularSystem(sys);
+      if (sys == null) {
+        throw new Error("invalid argument: invalid radix number for ipSystem.");
       }
     }
 
-    if (x.length > 0x8000) {
-      throw new Error("invalid argument: too much symbols in ipSymbols.");
+    if (sys.length > 0x8000) {
+      throw new Error("invalid argument: too many symbols in ipSystem.");
     }
 
     var ipMap = new (function NaiveAssoc() {
@@ -67,15 +66,15 @@ RadixConverter = (function() {
       this.exists = function(k) { return (PREF + k) in this; };
     })();
 
-    for (var i = 0, len = x.length; i < len; ++i) {
-      if (ipMap.exists(x[i])) {
-        throw new Error("invalid argument: duplicate symbols in ipSymbols.");
+    for (var i = 0, len = sys.length; i < len; ++i) {
+      if (ipMap.exists(sys[i])) {
+        throw new Error("invalid argument: duplicate symbols in ipSystem.");
       }
-      ipMap.set(x[i], i);
+      ipMap.set(sys[i], i);
     }
 
-    /** @type int|string|string[] */
-    this._ipSymbols = x;
+    /** @type string|string[] */
+    this._ipSymbols = sys;
     /** @type assoc */
     this._ipMap = ipMap;
 
@@ -83,6 +82,17 @@ RadixConverter = (function() {
   };
 
   /**
+   * Returns the symbol list of the input numeral system.
+   *
+   * @returns {string|string[]}
+   */
+  RadixConverter.prototype.ipSymbols = function() {
+    return this._ipSymbols;
+  };
+
+  /**
+   * Returns the radix of the input numeral system.
+   *
    * @returns {int}
    */
   RadixConverter.prototype.ipRadix = function() {
@@ -90,30 +100,42 @@ RadixConverter = (function() {
   };
 
   /**
-   * @param {int|string|string[]}
+   * Sets up the output numeral system.
+   *
+   * @param {int|string|string[]} sys
+   * @returns {RadixConverter} this.
    * @throws {Error}
    */
-  RadixConverter.prototype.opSymbols = function(x) {
-    if (x == null) { return this._opSymbols; }
-
-    if (typeof x === "number") {
-      x = RadixConverter.getPopularSystem(x);
-      if (x == null) {
-        throw new Error("invalid argument: invalid radix number for opSymbols.");
+  RadixConverter.prototype.setOpSystem = function(sys) {
+    if (typeof sys === "number") {
+      sys = RadixConverter.getPopularSystem(sys);
+      if (sys == null) {
+        throw new Error("invalid argument: invalid radix number for opSystem.");
       }
     }
 
-    if (x.length > 0x8000) {
-      throw new Error("invalid argument: too much symbols in opSymbols.");
+    if (sys.length > 0x8000) {
+      throw new Error("invalid argument: too many symbols in opSystem.");
     }
 
-    /** @type int|string|string[] */
-    this._opSymbols = x;
+    /** @type string|string[] */
+    this._opSymbols = sys;
 
     return this;
   };
 
   /**
+   * Returns the symbol list of the output numeral system.
+   *
+   * @returns {string|string[]}
+   */
+  RadixConverter.prototype.opSymbols = function() {
+    return this._opSymbols;
+  };
+
+  /**
+   * Returns the radix of the output numeral system.
+   *
    * @returns {int}
    */
   RadixConverter.prototype.opRadix = function() {
@@ -151,15 +173,15 @@ RadixConverter = (function() {
    * @throws {Error}
    */
   RadixConverter.prototype._inputToInternal = function(ip) {
-    var ipRadix = this.ipRadix();
+    var ipRadix = this.ipRadix(), ipMap = this._ipMap;
 
     var ns = [0], nlen = ns.length;
     for (var i = 0, len = ip.length; i < len; ++i) {
-      if (!this._ipMap.exists(ip[i])) {
+      if (!ipMap.exists(ip[i])) {
         throw new Error("invalid argument: unknown digit");
       }
 
-      var j = 0, n = this._ipMap.get(ip[i]);
+      var j = 0, n = ipMap.get(ip[i]);
       while (j < nlen) {
         n += ns[j] * ipRadix;
         ns[j] = (n & 0xffff);
