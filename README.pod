@@ -8,7 +8,7 @@ Load F<src/RadixConverter.js>.
 
   // set up numeral systems for input and output digit sequence
   var inputNumeralSystem  = "0123456789";
-  var outputNumeralSystem = "0123456789abcdef";
+  var outputNumeralSystem = "0123456789abcdef"; // case sensitive
   var rc = new RadixConverter(inputNumeralSystem, outputNumeralSystem);
 
   // convert decimal string to hexadecimal string
@@ -23,7 +23,7 @@ Load F<src/RadixConverter.js>.
   console.log(rc.convert("cwm fjord veg balks nth pyx quiz.")); // "<,++[-++>+<<]].>,<>><<<>.[[+,[<>+>->+-[[.[-<>[.[>.[]]"
 
   // string array for output numeral system
-  var rc = new RadixConverter("AaBbC", ["Ook.", "Ook!", "Ook?"]); // case sensitive
+  var rc = new RadixConverter("AaBbC", ["Ook.", "Ook!", "Ook?"]);
   console.log(rc.convert("ABabC")); // ["Ook!", "Ook.", "Ook!", "Ook?", "Ook?", "Ook."]
 
   // string array for input numeral system and input digits
