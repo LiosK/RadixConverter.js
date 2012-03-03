@@ -55,6 +55,10 @@ RadixConverter = (function() {
       }
     }
 
+    if (sys.length < 2) {
+      throw new Error("invalid argument: less than two symbols in ipSystem.");
+    }
+
     if (sys.length > 0x8000) {
       throw new Error("invalid argument: too many symbols in ipSystem.");
     }
@@ -112,6 +116,10 @@ RadixConverter = (function() {
       if (sys == null) {
         throw new Error("invalid argument: invalid radix number for opSystem.");
       }
+    }
+
+    if (sys.length < 2) {
+      throw new Error("invalid argument: less than two symbols in opSystem.");
     }
 
     if (sys.length > 0x8000) {
