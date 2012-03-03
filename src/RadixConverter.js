@@ -186,7 +186,7 @@ RadixConverter = (function() {
     var ns = [0], nlen = ns.length;
     for (var i = 0, len = ip.length; i < len; ++i) {
       if (!ipMap.exists(ip[i])) {
-        throw new Error("invalid argument: unknown digit");
+        throw new Error("invalid argument: unknown digit.");
       }
 
       var j = 0, n = ipMap.get(ip[i]);
